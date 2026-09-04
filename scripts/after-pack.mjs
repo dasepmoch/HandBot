@@ -76,6 +76,18 @@ export default async function afterPack(context) {
   );
   await validateCloudflared(resources, context.electronPlatformName, Boolean(context.packager));
 
+  if (context.electronPlatformName === "darwin") {
+    const appPath = path.join(context.appOutDir, "HandBot.app");
+    try {
+      const { execFileSync } = await import("node:child_process");
+      console.log(`[afterPack] Ad-hoc signing ${appPath} so macOS bundle signature is valid...`);
+      execFileSync("codesign", ["--force", "--deep", "-s", "-", appPath], { stdio: "inherit" });
+    } catch (error) {
+      console.warn(`[afterPack] Warning: ad-hoc signing failed:`, error?.message);
+    }
+    return;
+  }
+
   if (context.electronPlatformName !== "linux") return;
 
   const cuaRoot = path.join(resources, "cua-linux-x64");
