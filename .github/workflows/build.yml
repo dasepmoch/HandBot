@@ -52,20 +52,22 @@ jobs:
         run: |
           cd release
           # 1. Build clean DMG for arm64 (without .icns or background artifacts)
-          rm -f HandBot-*-arm64.dmg HandBot-*-arm64.dmg.blockmap
+          rm -f HandBot-*-arm64.dmg HandBot-*-arm64.dmg.blockmap /tmp/HandBot-arm64.dmg
           mkdir -p dmg-arm64
           cp -R mac-arm64/HandBot.app dmg-arm64/
           ln -s /Applications dmg-arm64/Applications
-          hdiutil create -volname "HandBot" -srcfolder dmg-arm64 -ov -format UDZO "HandBot-macOS-arm64.dmg"
+          hdiutil create -volname "HandBot" -srcfolder dmg-arm64 -ov -format UDZO /tmp/HandBot-arm64.dmg
+          mv /tmp/HandBot-arm64.dmg HandBot-macOS-arm64.dmg
           cp "HandBot-macOS-arm64.dmg" "HandBot-0.1.0-arm64.dmg"
           rm -rf dmg-arm64
 
           # 2. Build clean DMG for x64
-          rm -f HandBot-*-x64.dmg HandBot-*-x64.dmg.blockmap
+          rm -f HandBot-*-x64.dmg HandBot-*-x64.dmg.blockmap /tmp/HandBot-x64.dmg
           mkdir -p dmg-x64
           cp -R mac/HandBot.app dmg-x64/
           ln -s /Applications dmg-x64/Applications
-          hdiutil create -volname "HandBot" -srcfolder dmg-x64 -ov -format UDZO "HandBot-macOS-x64.dmg"
+          hdiutil create -volname "HandBot" -srcfolder dmg-x64 -ov -format UDZO /tmp/HandBot-x64.dmg
+          mv /tmp/HandBot-x64.dmg HandBot-macOS-x64.dmg
           cp "HandBot-macOS-x64.dmg" "HandBot-0.1.0-x64.dmg"
           rm -rf dmg-x64
 
