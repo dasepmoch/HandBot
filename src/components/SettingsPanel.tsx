@@ -591,7 +591,7 @@ export function SettingsPanel({ bot }: { bot: Bot }) {
   // itself; the box-native Computer engine has no browser-only mode.
   const browserSelectable = desktopBrowser && browserFeature && canUseBrowser && engine?.driverKind !== "boxAgent";
   const browserDisabledReason = !desktopBrowser
-    ? "The built-in browser needs the OpenMausBot desktop app"
+    ? "The built-in browser needs the HandBot desktop app"
     : !browserFeature
       ? "The built-in browser is switched off under App Settings → Experimental"
       : "This model engine cannot use the built-in browser";
@@ -787,7 +787,7 @@ export function SettingsPanel({ bot }: { bot: Bot }) {
                 {!desktopBrowser
                   ? browserBlockedOnWindows
                     ? "The built-in browser is temporarily unavailable on Windows while Electron's production sandbox support is being verified."
-                    : "The built-in browser needs the OpenMausBot desktop app."
+                    : "The built-in browser needs the HandBot desktop app."
                   : !browserFeature
                     ? "The built-in browser is switched off under App Settings → Experimental."
                     : !canUseBrowser

@@ -493,7 +493,7 @@ async function handle(line: string) {
     return ok(id, {
       protocolVersion: params?.protocolVersion ?? "2024-11-05",
       capabilities: { tools: {} },
-      serverInfo: { name: "openmausbot-browser", version: "1" },
+      serverInfo: { name: "handbot-browser", version: "1" },
     });
   }
   if (method === "notifications/initialized" || method === "notifications/cancelled") return;

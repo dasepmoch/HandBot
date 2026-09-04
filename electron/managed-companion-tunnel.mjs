@@ -174,7 +174,7 @@ function processIsAlive(pid) {
 const currentUserId = () =>
   process.platform === "win32" ? undefined : (process.getuid?.() ?? os.userInfo().uid);
 
-/** Remove only token files created by a dead OpenMausBot process. Suspicious
+/** Remove only token files created by a dead HandBot process. Suspicious
  * paths are preserved instead of broadening cleanup around a secret. */
 export function cleanupStaleManagedCompanionTokens(
   runtimeRoot,
@@ -294,7 +294,7 @@ async function verifyHostedEndpoint(
   const text = await response.text();
   if (Buffer.byteLength(text) > 4096) return false;
   try {
-    return JSON.parse(text)?.app === "openmausbot";
+    return JSON.parse(text)?.app === "handbot";
   } catch {
     return false;
   }

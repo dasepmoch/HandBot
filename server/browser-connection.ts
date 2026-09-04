@@ -103,7 +103,7 @@ const descriptorSchema = z.object({
   pid: z.number().int().positive(),
 }).strict();
 const desktopConnectionMessageSchema = z.object({
-  type: z.literal("openmausbot:browser-connection"),
+  type: z.literal("handbot:browser-connection"),
   connection: descriptorSchema.nullable(),
 }).strict();
 
@@ -157,7 +157,7 @@ export function applyDesktopBrowserConnectionMessage(message: unknown): boolean 
   if (
     typeof message !== "object" ||
     message === null ||
-    (message as { type?: unknown }).type !== "openmausbot:browser-connection"
+    (message as { type?: unknown }).type !== "handbot:browser-connection"
   ) {
     return false;
   }
@@ -196,7 +196,7 @@ export function readBrowserConnection({
     } else if (platform === "darwin") {
       // Dev fallback (Electron and the dev server are separate processes);
       // the packaged app passes its exact userData path.
-      for (const directory of ["OpenMausBot", "openmausbot"]) {
+      for (const directory of ["HandBot", "handbot"]) {
         candidates.push(join(home, "Library", "Application Support", directory, "browser-connection.json"));
       }
     }

@@ -72,7 +72,7 @@ const SHOT_PATH = "/tmp/ogb-shot.jpg";
 const SETTLE_MS = 350;
 /** Gap between batched actions so focus changes land before typing. */
 const ACTION_GAP_MS = 120;
-const CHROME_PROFILE = "$HOME/.openmausbot/chrome-profile";
+const CHROME_PROFILE = "$HOME/.handbot/chrome-profile";
 const CHROME_DEBUG_FLAGS =
   `--user-data-dir="${CHROME_PROFILE}" --password-store=basic --disable-session-crashed-bubble --no-first-run --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222`;
 // Keep one durable browser identity regardless of which Chromium binary an
@@ -88,7 +88,7 @@ const CHROME_PROFILE_SETUP = [
   '      echo "failed to copy browser profile: $browser_dir" >&2',
   "      exit 1",
   "    fi",
-  '    mv "$browser_dir" "$browser_dir.pre-openmausbot-$(date +%s)-$$"',
+  '    mv "$browser_dir" "$browser_dir.pre-handbot-$(date +%s)-$$"',
   "  fi",
   '  if [ -L "$browser_dir" ]; then rm -f "$browser_dir"; fi',
   '  ln -s "$profile" "$browser_dir"',
@@ -1115,7 +1115,7 @@ async function handle(msg: any) {
       result: {
         protocolVersion: msg.params?.protocolVersion ?? "2024-11-05",
         capabilities: { tools: {} },
-        serverInfo: { name: "openmausbot-computer", version: "3" },
+        serverInfo: { name: "handbot-computer", version: "3" },
       },
     });
   }

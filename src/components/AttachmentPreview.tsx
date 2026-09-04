@@ -145,7 +145,7 @@ function sourceImageExtension(source: string | undefined): string | null {
   if (!source) return null;
   let pathname = source;
   try {
-    pathname = decodeURIComponent(new URL(source, "https://openmausbot.invalid").pathname);
+    pathname = decodeURIComponent(new URL(source, "https://handbot.invalid").pathname);
   } catch {
     pathname = source.split(/[?#]/, 1)[0] ?? source;
   }

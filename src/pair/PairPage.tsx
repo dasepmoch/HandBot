@@ -13,7 +13,7 @@ export function PairPage({ initialCode, reason }: { initialCode: string | null; 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    void fetch("/.well-known/openmausbot/environment")
+    void fetch("/.well-known/handbot/environment")
       .then((r) => (r.ok ? r.json() : null))
       .then((d: EnvironmentDescriptor | null) => setEnvironment(d))
       .catch(() => setEnvironment(null));
@@ -38,7 +38,7 @@ export function PairPage({ initialCode, reason }: { initialCode: string | null; 
   return (
     <main className="flex min-h-screen items-center justify-center bg-app px-6 text-ink">
       <form onSubmit={submit} className="w-full max-w-[420px]">
-        <h1 className="text-[20px] font-semibold">Connect to {environment?.label ?? "this OpenMausBot"}</h1>
+        <h1 className="text-[20px] font-semibold">Connect to {environment?.label ?? "this HandBot"}</h1>
         <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-secondary">
           {environment ? `Version ${environment.version} on ${environment.platform}. ` : ""}
           Enter the pairing code shown on the server. Codes work once and expire after five minutes.

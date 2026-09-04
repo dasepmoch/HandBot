@@ -1,0 +1,88 @@
+name: Build & Package HandBot
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos:
+    name: Build macOS Application
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare packages
+        run: pnpm package:prepare
+
+      - name: Build helpers and CUA
+        run: |
+          pnpm build:speech
+          pnpm build:recorder
+          pnpm build:cua
+
+      - name: Package macOS (DMG and ZIP)
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: pnpm electron-builder --mac --publish never
+
+      - name: Prepare distribution artifacts
+        run: |
+          cd release
+          cp HandBot-*-arm64.dmg HandBot-macOS-arm64.dmg 2>/dev/null || true
+          cp HandBot-*-arm64.zip HandBot-macOS-arm64.zip 2>/dev/null || true
+          cp HandBot-*-x64.dmg HandBot-macOS-x64.dmg 2>/dev/null || true
+          cp HandBot-*-x64.zip HandBot-macOS-x64.zip 2>/dev/null || true
+
+          for f in HandBot*.dmg HandBot*.zip; do
+            if [ -f "$f" ]; then
+              shasum -a 256 "$f" > "$f.sha256"
+            fi
+          done
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: HandBot-macOS
+          path: |
+            release/HandBot*.dmg*
+            release/HandBot*.zip*
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          name: HandBot ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            release/HandBot*.dmg*
+            release/HandBot*.zip*
+            release/latest-mac.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

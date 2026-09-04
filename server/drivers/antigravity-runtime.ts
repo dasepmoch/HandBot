@@ -126,7 +126,7 @@ async function externalRuntime(candidate: string, source: "override" | "path"): 
 
 /** Resolve an explicit official ACP binary, the pinned managed release, or an
  * official binary already on PATH. The old community `agy` default is treated
- * as "managed" so existing OpenMausBot configs migrate without edits. */
+ * as "managed" so existing HandBot configs migrate without edits. */
 export async function resolveAntigravityRuntime(
   binaryPath?: string,
   env: NodeJS.ProcessEnv = process.env,

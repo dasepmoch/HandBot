@@ -105,8 +105,8 @@ test("the shipped installer moves the update onto the running AppImage's path", 
   t.after(() => rmSync(workspace, { recursive: true, force: true }));
 
   // The user launches a versioned filename — the case upstream renames.
-  const launched = join(workspace, "OpenMausBot-0.1.43-x86_64.AppImage");
-  const staged = join(workspace, "pending", "OpenMausBot-0.1.44-x86_64.AppImage");
+  const launched = join(workspace, "HandBot-0.1.43-x86_64.AppImage");
+  const staged = join(workspace, "pending", "HandBot-0.1.44-x86_64.AppImage");
   mkdirSync(join(workspace, "pending"));
   writeFileSync(launched, "old", { mode: 0o755 });
   writeFileSync(staged, "new", { mode: 0o755 });
@@ -135,7 +135,7 @@ test("the shipped installer moves the update onto the running AppImage's path", 
 
   assert.equal(readFileSync(launched, "utf8"), "new", "the update must land on the launched path");
   assert.equal(existsSync(staged), false, "the staged download must be consumed");
-  assert.deepEqual(readdirSync(workspace).sort(), ["OpenMausBot-0.1.43-x86_64.AppImage", "pending"]);
+  assert.deepEqual(readdirSync(workspace).sort(), ["HandBot-0.1.43-x86_64.AppImage", "pending"]);
   assert.equal(relaunched, launched, "the relaunch must use the path the launcher points at");
   assert.deepEqual(renames, [], "no filename change means no appimage-filename-updated event");
 });
@@ -152,7 +152,7 @@ test("the running AppImage is never removed before its replacement is in place",
   const workspace = mkdtempSync(join(tmpdir(), "omb-appimage-failed-"));
   t.after(() => rmSync(workspace, { recursive: true, force: true }));
 
-  const launched = join(workspace, "OpenMausBot-0.1.43-x86_64.AppImage");
+  const launched = join(workspace, "HandBot-0.1.43-x86_64.AppImage");
   writeFileSync(launched, "the app the user has", { mode: 0o755 });
 
   const previous = process.env.APPIMAGE;

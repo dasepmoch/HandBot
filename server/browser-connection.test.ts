@@ -58,7 +58,7 @@ describe("browser connection descriptor", () => {
       token: TOKEN,
     });
 
-    const support = join(home, "Library", "Application Support", "OpenMausBot");
+    const support = join(home, "Library", "Application Support", "HandBot");
     const { mkdirSync } = require("node:fs");
     mkdirSync(support, { recursive: true });
     writeFileSync(join(support, "browser-connection.json"), JSON.stringify({ ...descriptor, url: "http://127.0.0.1:1" }));
@@ -167,7 +167,7 @@ describe("browser connection descriptor", () => {
       pid: process.pid,
     }));
     expect(applyDesktopBrowserConnectionMessage({
-      type: "openmausbot:browser-connection",
+      type: "handbot:browser-connection",
       connection: {
         version: 1,
         url: "http://127.0.0.1:2222",
@@ -181,7 +181,7 @@ describe("browser connection descriptor", () => {
     });
     expect(applyDesktopBrowserConnectionMessage({ type: "something-else" })).toBe(false);
     expect(applyDesktopBrowserConnectionMessage({
-      type: "openmausbot:browser-connection",
+      type: "handbot:browser-connection",
       connection: null,
     })).toBe(true);
     // A packaged clear suppresses even a valid stale descriptor on disk.

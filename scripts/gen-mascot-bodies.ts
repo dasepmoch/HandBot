@@ -483,7 +483,7 @@ function emitKotlin(bodies: Baked[]): string {
     })
     .join("\n")
 
-  return `package com.openmausbot.companion.ui
+  return `package com.handbot.companion.ui
 
 /**
  * The mascot bodies a bot can wear — the Android half of the same solve that bakes
@@ -623,7 +623,7 @@ function main(): void {
   // The Android app module: its JVM unit tests (Robolectric) can parse the catalog the
   // way `swift test` can for CompanionCore, so the same drift guard covers it.
   const kotlinOut = fileURLToPath(
-    new URL("../android/app/src/main/kotlin/com/openmausbot/companion/ui/MausBodies.kt", import.meta.url)
+    new URL("../android/app/src/main/kotlin/com/handbot/companion/ui/MausBodies.kt", import.meta.url)
   )
   writeFileSync(kotlinOut, emitKotlin(baked))
   console.log(`wrote ${kotlinOut}`)

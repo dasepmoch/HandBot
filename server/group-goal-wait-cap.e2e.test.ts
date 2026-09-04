@@ -26,7 +26,7 @@ let home = "";
 let base = "";
 let stderr = "";
 
-const envelope = (payload: Record<string, string>) => `<openmaus-goal>${JSON.stringify(payload)}</openmaus-goal>`;
+const envelope = (payload: Record<string, string>) => `<handbot-goal>${JSON.stringify(payload)}</handbot-goal>`;
 
 // turn 1: assign the worker that never frees up; turn 2 (after the harness
 // note): reassign to the helper; turn 3: complete
@@ -54,7 +54,7 @@ const fixture = (displayName: string, environment: Record<string, string>) => ({
 
 beforeAll(async () => {
   home = mkdtempSync(join(tmpdir(), "omb-goal-wait-cap-"));
-  const data = join(home, ".openmausbot");
+  const data = join(home, ".handbot");
   const staticDir = join(home, "static");
   mkdirSync(data, { recursive: true });
   mkdirSync(join(staticDir, "assets"), { recursive: true });

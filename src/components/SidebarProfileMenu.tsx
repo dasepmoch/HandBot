@@ -182,7 +182,7 @@ export function SidebarProfileMenu() {
   const items: SidebarMenuItem[] = [
     {
       key: "phone",
-      label: phone.pairedCount ? "Your phone" : "Get OpenMausBot for iOS",
+      label: phone.pairedCount ? "Your phone" : "Get HandBot for iOS",
       icon: <Smartphone size={18} />,
       trailing:
         phone.kind === "connected" ? (

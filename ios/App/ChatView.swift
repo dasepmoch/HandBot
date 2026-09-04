@@ -1593,7 +1593,7 @@ struct CredentialRequestCardView: View {
                     Label("Finish on your computer", systemImage: "desktopcomputer")
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(tint)
-                    Text("Open this chat in OpenMausBot on your computer to enter the key. It is stored there securely and is never added to chat.")
+                    Text("Open this chat in HandBot on your computer to enter the key. It is stored there securely and is never added to chat.")
                         .font(.system(size: 13))
                         .foregroundStyle(Color.secondary)
                         .fixedSize(horizontal: false, vertical: true)

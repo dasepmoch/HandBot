@@ -31,7 +31,7 @@ describe("control-omb command mapping", () => {
 
   it("composes doctor from the shared health and model tools", async () => {
     const callTool = vi.fn(async (name: string) => name === "get_system_health"
-      ? { status: "connected", app: "openmausbot" }
+      ? { status: "connected", app: "handbot" }
       : {
           instances: [
             { instanceId: "ready", snapshot: { state: "available" } },
@@ -49,7 +49,7 @@ describe("control-omb command mapping", () => {
     });
   });
 
-  it("rejects an available engine when the endpoint is not OpenMausBot", async () => {
+  it("rejects an available engine when the endpoint is not HandBot", async () => {
     const callTool = vi.fn(async (name: string) => name === "get_system_health"
       ? { status: "connected", app: "another-app" }
       : { instances: [{ instanceId: "ready", snapshot: { state: "available" } }] });
@@ -66,13 +66,13 @@ describe("control-omb command mapping", () => {
       callTool: vi.fn() as any,
       env: {},
     })).rejects.toMatchObject({
-      message: "mutating commands require an explicit OpenMausBot instance",
+      message: "mutating commands require an explicit HandBot instance",
     });
   });
 
   it("maps bounded reads and dry-run actions without reimplementing them", async () => {
     const callTool = vi.fn(async (name: string, args: Record<string, unknown>) => ({ name, args }));
-    const env = { OPENMAUSBOT_URL: "http://127.0.0.1:19999" };
+    const env = { HANDBOT_URL: "http://127.0.0.1:19999" };
     await expect(runControlOmb(["messages", "--channel", "room-1", "--limit", "20"], {
       callTool: callTool as any,
       env,
@@ -107,7 +107,7 @@ describe("control-omb isolated verification loop", () => {
       OMB_SKILLS_DIR: "/must/not/reach/the/fixture",
       XAI_API_KEY: "must-not-reach-the-fixture",
     });
-    const env = { OPENMAUSBOT_URL: session.info.url };
+    const env = { HANDBOT_URL: session.info.url };
     try {
       const doctor = await runControlOmb(["doctor"], { env }) as any;
       expect(doctor.ok).toBe(true);

@@ -19,7 +19,7 @@ const root = fileURLToPath(new URL("../../", import.meta.url));
 // builds) — see swift-catalog.test.mjs.
 const TS_PATH = "../../shared/mascot-bodies.ts";
 const SWIFT_PATH = "../../ios/Sources/CompanionCore/MausBodies.swift";
-const KOTLIN_PATH = "../../android/app/src/main/kotlin/com/openmausbot/companion/ui/MausBodies.kt";
+const KOTLIN_PATH = "../../android/app/src/main/kotlin/com/handbot/companion/ui/MausBodies.kt";
 
 // Normalised to LF. .gitattributes pins both catalogs to LF so this should be a
 // no-op, but a clone whose git config disagrees would otherwise fail this guard
@@ -67,7 +67,7 @@ describe("generated catalogs", () => {
       throw new Error(
         `Running \`pnpm gen:bodies\` failed while checking the catalogs for drift. ` +
           `The working tree may now hold a partially-written or reverted file — run ` +
-          `\`git status\` / \`git diff -- shared/mascot-bodies.ts ios/Sources/CompanionCore/MausBodies.swift android/app/src/main/kotlin/com/openmausbot/companion/ui/MausBodies.kt\` ` +
+          `\`git status\` / \`git diff -- shared/mascot-bodies.ts ios/Sources/CompanionCore/MausBodies.swift android/app/src/main/kotlin/com/handbot/companion/ui/MausBodies.kt\` ` +
           `before trusting either file. Original error:\n${err.stderr?.toString() ?? err.message}`
       );
     }
@@ -89,7 +89,7 @@ describe("generated catalogs", () => {
     const drifts = [
       describeDrift("shared/mascot-bodies.ts", before.ts, after.ts),
       describeDrift("ios/Sources/CompanionCore/MausBodies.swift", before.swift, after.swift),
-      describeDrift("android/app/src/main/kotlin/com/openmausbot/companion/ui/MausBodies.kt", before.kotlin, after.kotlin),
+      describeDrift("android/app/src/main/kotlin/com/handbot/companion/ui/MausBodies.kt", before.kotlin, after.kotlin),
     ].filter(Boolean);
 
     if (drifts.length > 0) {

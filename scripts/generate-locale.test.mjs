@@ -22,7 +22,7 @@ import {
 const temporaryDirectories = [];
 
 function temporaryDirectory() {
-  const directory = mkdtempSync(join(tmpdir(), "openmausbot-locale-test-"));
+  const directory = mkdtempSync(join(tmpdir(), "handbot-locale-test-"));
   temporaryDirectories.push(directory);
   return directory;
 }

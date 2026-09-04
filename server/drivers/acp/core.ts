@@ -179,10 +179,10 @@ export interface AcpSupport {
 }
 
 const envOr = (key: string, fallback: number): number => Number(process.env[key] ?? fallback);
-const INIT_TIMEOUT = envOr("OPENMAUS_ACP_INIT_TIMEOUT_MS", 300_000);
-const SESSION_CONFIG_TIMEOUT = envOr("OPENMAUS_ACP_SESSION_CONFIG_TIMEOUT_MS", 300_000); // configureSession's per-request default
-const NEW_SESSION_TIMEOUT = envOr("OPENMAUS_ACP_NEW_SESSION_TIMEOUT_MS", 300_000);
-const LOAD_SESSION_TIMEOUT = envOr("OPENMAUS_ACP_LOAD_SESSION_TIMEOUT_MS", 120_000); // history replay on a long thread is slow
+const INIT_TIMEOUT = envOr("HANDBOT_ACP_INIT_TIMEOUT_MS", 300_000);
+const SESSION_CONFIG_TIMEOUT = envOr("HANDBOT_ACP_SESSION_CONFIG_TIMEOUT_MS", 300_000); // configureSession's per-request default
+const NEW_SESSION_TIMEOUT = envOr("HANDBOT_ACP_NEW_SESSION_TIMEOUT_MS", 300_000);
+const LOAD_SESSION_TIMEOUT = envOr("HANDBOT_ACP_LOAD_SESSION_TIMEOUT_MS", 120_000); // history replay on a long thread is slow
 const CLIENT_FILE_MAX_BYTES = 8 * 1024 * 1024;
 const TOOL_LOG_TEXT_LIMIT = 64_000;
 
@@ -239,7 +239,7 @@ export function createAcpDriver(support: AcpSupport): ProviderDriver<AcpConfig> 
   const SOURCE = support.nativeSource;
   const decodeConfig = decodeAcpConfig(support.defaultCli);
   const DENY_TIMEOUT_NOTE =
-    "OpenMausBot: nobody answered this permission request in time. Skip this action and finish what you can without it.";
+    "HandBot: nobody answered this permission request in time. Skip this action and finish what you can without it.";
 
   return {
     driverKind: DRIVER_KIND,
@@ -785,7 +785,7 @@ export function createAcpDriver(support: AcpSupport): ProviderDriver<AcpConfig> 
               "initialize",
               {
                 protocolVersion: 1,
-                clientInfo: { name: "openmausbot", version: "0.0.0" },
+                clientInfo: { name: "handbot", version: "0.0.0" },
                 clientCapabilities: {
                   fs: {
                     readTextFile: support.clientFileSystem === true,

@@ -40,18 +40,18 @@ describe("remote Cua computer setup", () => {
 
   it("encodes semantic browser input instead of interpolating it into shell", () => {
     const command = semanticBrowserCommand("fill", { ref: "b7", text: "don't expand $HOME" });
-    expect(command).toContain("openmausbot-cdp.mjs fill");
+    expect(command).toContain("handbot-cdp.mjs fill");
     expect(command).not.toContain("don't expand");
     expect(command).not.toContain("$HOME");
   });
 
   it("encodes a bot display name before composing the tmux shell", () => {
-    const botName = "$(touch /tmp/openmaus-pwned) `id` ' \\\"";
+    const botName = "$(touch /tmp/handbot-pwned) `id` ' \\\"";
     const command = remoteComputerBootstrapCommand(botName);
-    const encodedBanner = Buffer.from(`  ▦ ${botName}'s computer — OpenMausBot`).toString("base64");
+    const encodedBanner = Buffer.from(`  ▦ ${botName}'s computer — HandBot`).toString("base64");
 
     expect(command).toContain(encodedBanner);
-    expect(command).not.toContain("touch /tmp/openmaus-pwned");
+    expect(command).not.toContain("touch /tmp/handbot-pwned");
     expect(command).not.toContain("`id`");
     if (process.platform !== "win32") {
       expect(spawnSync("/bin/bash", ["-n"], { input: command }).status).toBe(0);

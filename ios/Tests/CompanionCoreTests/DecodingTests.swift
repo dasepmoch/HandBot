@@ -516,7 +516,7 @@ final class DecodingTests: XCTestCase {
         // desktop changes in lockstep; the client passes them through.
         XCTAssertEqual(
             try decode(APIErrorBody.self, "unauthorized").error,
-            "pair this device from Phone settings in OpenMausBot on your computer"
+            "pair this device from Phone settings in HandBot on your computer"
         )
         XCTAssertFalse(try decode(APIErrorBody.self, "forbidden").error.isEmpty)
         XCTAssertEqual(

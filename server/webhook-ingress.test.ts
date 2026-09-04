@@ -41,10 +41,10 @@ afterAll(async () => {
 });
 
 describe("webhook-only ingress", () => {
-  it("exposes health but nothing from the main OpenMausBot API", async () => {
+  it("exposes health but nothing from the main HandBot API", async () => {
     const health = await fetch(`${ingress.baseUrl}/health`);
     expect(health.status).toBe(200);
-    expect(await health.json()).toEqual({ app: "openmausbot-webhooks", ready: true });
+    expect(await health.json()).toEqual({ app: "handbot-webhooks", ready: true });
     expect((await fetch(`${ingress.baseUrl}/api/bots`)).status).toBe(404);
   });
 

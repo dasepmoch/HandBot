@@ -102,7 +102,7 @@ function describeWindowsSandboxAcls(records, executable, repairedFiles) {
 function prepareWindowsElectronSandbox(executable) {
   if (process.platform !== "win32") return "not applicable on this platform";
   const aclRoot = pathWin32.dirname(executable);
-  const diagnosticDir = mkdtempSync(join(tmpdir(), "openmaus-electron-acl-"));
+  const diagnosticDir = mkdtempSync(join(tmpdir(), "handbot-electron-acl-"));
   const beforeAclFile = join(diagnosticDir, "before.acl");
   const afterAclFile = join(diagnosticDir, "after.acl");
   try {
@@ -140,11 +140,11 @@ function prepareWindowsElectronSandbox(executable) {
 }
 
 it("constructs Chromium-style Windows Electron sandbox ACL commands without a shell", () => {
-  const executable = "D:\\a\\OpenMausBot\\node_modules\\electron\\dist\\electron.exe";
+  const executable = "D:\\a\\HandBot\\node_modules\\electron\\dist\\electron.exe";
   expect(windowsSandboxRootAclCommand(executable)).toEqual({
     command: "icacls",
     args: [
-      "D:\\a\\OpenMausBot\\node_modules\\electron\\dist",
+      "D:\\a\\HandBot\\node_modules\\electron\\dist",
       "/grant",
       "*S-1-15-2-2:(OI)(CI)(RX)",
     ],
@@ -152,7 +152,7 @@ it("constructs Chromium-style Windows Electron sandbox ACL commands without a sh
   expect(windowsSandboxSaveAclCommand(executable, "D:\\temp\\electron.acl")).toEqual({
     command: "icacls",
     args: [
-      "D:\\a\\OpenMausBot\\node_modules\\electron\\dist",
+      "D:\\a\\HandBot\\node_modules\\electron\\dist",
       "/save",
       "D:\\temp\\electron.acl",
       "/T",
@@ -167,7 +167,7 @@ it("constructs Chromium-style Windows Electron sandbox ACL commands without a sh
 });
 
 it("finds hardlinked Windows Electron files that missed the inherited sandbox ACL", () => {
-  const aclRoot = "D:\\a\\OpenMausBot\\node_modules\\electron\\dist";
+  const aclRoot = "D:\\a\\HandBot\\node_modules\\electron\\dist";
   const records = parseWindowsSavedAcls([
     "dist",
     "D:AI(A;OICI;0x1200a9;;;S-1-15-2-2)",
@@ -178,7 +178,7 @@ it("finds hardlinked Windows Electron files that missed the inherited sandbox AC
     "",
   ].join("\r\n"), aclRoot);
   expect(windowsEntriesMissingSandboxAcl(records)).toEqual([
-    "D:\\a\\OpenMausBot\\node_modules\\electron\\dist\\electron.exe",
+    "D:\\a\\HandBot\\node_modules\\electron\\dist\\electron.exe",
   ]);
 });
 
@@ -189,7 +189,7 @@ it.runIf(canRunRealElectronFixture)("protects closed-shadow values and revalidat
     ? ["-a", electron, "--no-sandbox", fixture]
     : [fixture];
   const diagnosticDir = process.platform === "win32"
-    ? mkdtempSync(join(tmpdir(), "openmaus-electron-log-"))
+    ? mkdtempSync(join(tmpdir(), "handbot-electron-log-"))
     : null;
   const chromiumLogFile = diagnosticDir ? join(diagnosticDir, "chromium.log") : null;
   const childEnv = { ...process.env };

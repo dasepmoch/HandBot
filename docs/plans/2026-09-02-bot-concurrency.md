@@ -20,7 +20,7 @@ Status: decision record (Sep 2, 2026). Scopes the "parallel runtime" part of
 - Memory is per bot, files per user; no concurrent-write semantics are published — the product
   pushes conflicts to "a single owner at each stage".
 
-## Decision for OpenMausBot
+## Decision for HandBot
 
 1. **Default stays serial per bot; membership fans out; a busy bot is *woken later*, never
    skipped.** Ordinary room turns join the same bounded wait that goals use (`waitForGroupGoalBot`

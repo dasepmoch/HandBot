@@ -174,7 +174,7 @@ function ManagedEngineSetup({ instance, signInOnly }: { instance: InstanceInfo; 
           {busy === "install" ? "Downloading and verifying…" : managed.label}
         </button>
         <p className="mt-1.5 text-center text-[11px] text-ink-secondary/70">
-          {Math.ceil(managed.downloadBytes / 1024 / 1024)} MB download from Google. OpenMausBot verifies it before use.
+          {Math.ceil(managed.downloadBytes / 1024 / 1024)} MB download from Google. HandBot verifies it before use.
         </p>
         {error && <p className="mt-2 text-[11.5px] text-danger">{error}</p>}
       </div>

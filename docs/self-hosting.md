@@ -1,4 +1,4 @@
-# Self-hosting the OpenMausBot server
+# Self-hosting the HandBot server
 
 Run the harness server on an always-on Linux box (a VPS, a home server, a
 Mac mini in a closet) and use it from other devices. This is the supported
@@ -38,13 +38,13 @@ Requirements: Docker with Compose, a DNS name pointing at the machine, and
 ports 80/443 open.
 
 ```sh
-git clone https://github.com/milind-soni/OpenMausBot && cd OpenMausBot/deploy
+git clone https://github.com/dasepmoch/handbot && cd HandBot/deploy
 cp .env.example .env            # set DOMAIN
 docker compose pull omb && docker compose up -d
 ```
 
 That uses the image CI publishes on every `main` push
-(`ghcr.io/milind-soni/openmausbot`, tagged `latest`, `sha-…` and `v…`).
+(`ghcr.io/dasepmoch/handbot`, tagged `latest`, `sha-…` and `v…`).
 To build from your checkout instead: `docker compose up -d --build`.
 
 Then sign the engine CLIs in **inside the container** (their logins live on
@@ -86,26 +86,26 @@ Requirements: Node 24+, pnpm, and at least one agent CLI installed and
 signed in on the server.
 
 ```sh
-git clone https://github.com/milind-soni/OpenMausBot && cd OpenMausBot
+git clone https://github.com/dasepmoch/handbot && cd HandBot
 pnpm install
 
 # choose where data lives and start the server
-OMB_DATA_DIR="$HOME/.openmausbot" OMB_PORT=8799 \
+OMB_DATA_DIR="$HOME/.handbot" OMB_PORT=8799 \
   node --experimental-strip-types server/index.ts
 ```
 
 For something durable, run it under systemd:
 
 ```ini
-# /etc/systemd/system/openmausbot.service
+# /etc/systemd/system/handbot.service
 [Unit]
-Description=OpenMausBot harness
+Description=HandBot harness
 After=network.target
 
 [Service]
 User=maus
-WorkingDirectory=/home/maus/OpenMausBot
-Environment=OMB_DATA_DIR=/home/maus/.openmausbot
+WorkingDirectory=/home/maus/HandBot
+Environment=OMB_DATA_DIR=/home/maus/.handbot
 Environment=OMB_PORT=8799
 ExecStart=/usr/bin/node --experimental-strip-types server/index.ts
 Restart=on-failure
@@ -158,7 +158,7 @@ and take a 5-minute ticket from `POST /api/auth/stream-ticket` for the
 event stream, because `EventSource` cannot set headers:
 `GET /api/events?ticket=…`.
 
-`GET /.well-known/openmausbot/environment` is public and tells a client what
+`GET /.well-known/handbot/environment` is public and tells a client what
 it is talking to: a stable `environmentId`, the label, the version and
 capabilities. Saved connections check the id so a reused address that now
 points at a different server is refused loudly.
@@ -207,7 +207,7 @@ per-device credentials on pairing — see the pairing screen in the iOS app.
 
 ```sh
 docker compose -f deploy/docker-compose.yml pull omb && docker compose -f deploy/docker-compose.yml up -d   # Docker
-git pull && pnpm install && sudo systemctl restart openmausbot          # from source
+git pull && pnpm install && sudo systemctl restart handbot          # from source
 ```
 
 Routines and queued work survive restarts; in-flight turns do not, so

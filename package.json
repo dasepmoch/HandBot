@@ -1,23 +1,23 @@
 {
-  "name": "openmausbot",
+  "name": "handbot",
   "private": true,
-  "version": "0.1.50",
-  "description": "A local-first chat app for running a team of AI agents.",
-  "homepage": "https://github.com/milind-soni/OpenMausBot",
+  "version": "0.1.0",
+  "description": "HandBot: Autonomous desktop AI assistant and open alternative to Grok Bot with multi-provider routing, MCP tools, and local Docker sandbox",
+  "homepage": "https://github.com/dasepmoch/handbot",
   "repository": {
     "type": "git",
-    "url": "https://github.com/milind-soni/OpenMausBot.git"
+    "url": "https://github.com/dasepmoch/handbot.git"
   },
   "author": {
-    "name": "Milind Soni",
-    "email": "46266943+milind-soni@users.noreply.github.com"
+    "name": "Dasep Mochammad",
+    "url": "https://github.com/dasepmoch"
   },
   "license": "Apache-2.0",
-  "desktopName": "com.openmausbot.app.desktop",
+  "desktopName": "com.handbot.app.desktop",
   "type": "module",
   "main": "electron/main.mjs",
   "engines": {
-    "node": ">=24"
+    "node": ">=22"
   },
   "packageManager": "pnpm@10.33.0",
   "scripts": {
@@ -26,9 +26,9 @@
     "check:contrast": "node scripts/check-skin-contrast.mjs",
     "i18n:check": "node scripts/generate-locale.mjs --check",
     "dev": "vite",
-    "docs:dev": "pnpm --filter @openmausbot/docs dev",
-    "docs:build": "pnpm --filter @openmausbot/docs build",
-    "docs:preview": "pnpm --filter @openmausbot/docs preview",
+    "docs:dev": "pnpm --filter @handbot/docs dev",
+    "docs:build": "pnpm --filter @handbot/docs build",
+    "docs:preview": "pnpm --filter @handbot/docs preview",
     "companion": "node --experimental-strip-types companion/src/index.ts",
     "pair": "node --experimental-strip-types server/pair-cli.ts",
     "dev:server": "node --experimental-strip-types server/index.ts",
@@ -73,10 +73,10 @@
     "broker:check": "pnpm broker:types && tsc -p cloudflare/composio-broker/tsconfig.json",
     "broker:test": "vitest run --config cloudflare/composio-broker/vitest.config.ts",
     "broker:deploy": "wrangler deploy --config cloudflare/composio-broker/wrangler.jsonc",
-    "control-plane:types": "pnpm --filter @openmausbot/control-plane types",
-    "control-plane:check": "pnpm --filter @openmausbot/control-plane check",
-    "control-plane:test": "pnpm --filter @openmausbot/control-plane test",
-    "control-plane:dry-run": "pnpm --filter @openmausbot/control-plane dry-run"
+    "control-plane:types": "pnpm --filter @handbot/control-plane types",
+    "control-plane:check": "pnpm --filter @handbot/control-plane check",
+    "control-plane:test": "pnpm --filter @handbot/control-plane test",
+    "control-plane:dry-run": "pnpm --filter @handbot/control-plane dry-run"
   },
   "dependencies": {
     "@trycua/cua-driver": "0.20.0",

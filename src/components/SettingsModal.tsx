@@ -294,7 +294,7 @@ function ExperimentalFeaturesRow() {
                 : "Off by default. Enable it to let supported bots use a browser tab you can watch and take over."
               : browserBlockedOnWindows
                 ? "Temporarily unavailable on Windows while Electron's production sandbox support is being verified."
-                : "Needs the OpenMausBot desktop app."}
+                : "Needs the HandBot desktop app."}
           </div>
         </div>
         <Switch
@@ -374,7 +374,7 @@ function BrowserProfilesRow() {
       try {
         await window.ogb?.browser?.forgetProfile?.(profile.partitionId ?? profile.id);
       } catch {
-        setError("The profile was removed, but its local browser data could not be erased. Restart OpenMausBot before reusing that profile name.");
+        setError("The profile was removed, but its local browser data could not be erased. Restart HandBot before reusing that profile name.");
       }
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not delete the browser profile.");

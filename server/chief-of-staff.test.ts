@@ -67,13 +67,13 @@ describe("chiefOfStaffSystemPrompt", () => {
     expect(prompt).not.toContain("delegate_bot");
   });
 
-  it("includes trusted OpenMaus status only when the Chief caller supplies it", () => {
-    const status = "TRUSTED OPENMAUSBOT STATUS\nfreshness=fresh; runtime_state=degraded";
+  it("includes trusted HandBot status only when the Chief caller supplies it", () => {
+    const status = "TRUSTED HANDBOT STATUS\nfreshness=fresh; runtime_state=degraded";
 
     const chiefPrompt = chiefOfStaffSystemPrompt("chief", bots, true, status);
     const ordinaryPrompt = chiefOfStaffSystemPrompt("writer", bots, true);
 
     expect(chiefPrompt).toContain(status);
-    expect(ordinaryPrompt).not.toContain("TRUSTED OPENMAUSBOT STATUS");
+    expect(ordinaryPrompt).not.toContain("TRUSTED HANDBOT STATUS");
   });
 });

@@ -31,7 +31,7 @@ try {
     body: JSON.stringify({ ...(label ? { label } : {}), ...(clientOnly ? { scopes: ["client"] } : {}) }),
   });
 } catch (error) {
-  console.error(`no OpenMausBot server on ${base} (${error instanceof Error ? error.message : String(error)}); is it running, or is OMB_PORT different?`);
+  console.error(`no HandBot server on ${base} (${error instanceof Error ? error.message : String(error)}); is it running, or is OMB_PORT different?`);
   process.exit(1);
 }
 const body: unknown = await res.json().catch(() => ({}));

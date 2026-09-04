@@ -420,7 +420,7 @@ export function BrowserPanel({
         }
         const setLocalControl = async (held: boolean): Promise<boolean> => {
           try {
-            if (!bridge?.setHumanControl) throw new Error("Update OpenMausBot before using browser takeover.");
+            if (!bridge?.setHumanControl) throw new Error("Update HandBot before using browser takeover.");
             const applied = await bridge.setHumanControl(botId, held, activePartition);
             if (!applied) throw new Error("The browser tab is not ready for takeover yet.");
             return true;
@@ -508,7 +508,7 @@ export function BrowserPanel({
       if (!(await changeControl("take"))) return;
       if (direction === "back") await bridge.back(botId, activePartition);
       else if (bridge.forward) await bridge.forward(botId, activePartition);
-      else throw new Error("Update OpenMausBot before using Forward.");
+      else throw new Error("Update HandBot before using Forward.");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : String(cause));
     } finally {
@@ -595,7 +595,7 @@ export function BrowserPanel({
   if (!bridge) {
     return (
       <div className="rounded-xl bg-card p-4 text-[13px] text-ink-secondary">
-        The built-in browser needs the OpenMausBot desktop app.
+        The built-in browser needs the HandBot desktop app.
       </div>
     );
   }

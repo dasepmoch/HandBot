@@ -41,7 +41,7 @@ describe("custom MCP probe", () => {
 
   it("does not expose native spawn details", async () => {
     const result = await probeMcpServer({
-      command: "/definitely/missing/openmaus-mcp",
+      command: "/definitely/missing/handbot-mcp",
       args: [],
       env: { SECRET_TOKEN: "never-render-this" },
       enabled: false,

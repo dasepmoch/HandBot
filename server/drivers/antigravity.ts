@@ -5,7 +5,7 @@
 // The previous community `agy` print-mode bridge mutated the user's global
 // ~/.gemini MCP config and could not surface interactive approvals. Official
 // ACP mounts MCP servers per session and uses the same trusted approval cards
-// as OpenMausBot's other ACP engines.
+// as HandBot's other ACP engines.
 import type {
   DriverCreateInput,
   ModelCatalog,
@@ -152,6 +152,13 @@ export const AntigravityDriver: ProviderDriver<AcpConfig> = {
     };
     return {
       ...base,
+      adapter: {
+        ...base.adapter,
+        capabilities: {
+          ...base.adapter.capabilities,
+          localComputerMcp: true,
+        },
+      },
       get models() {
         return base.models;
       },

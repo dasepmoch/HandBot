@@ -1,6 +1,6 @@
 // What a client learns about this server before it authenticates: a stable
 // identity, a label, the version, and what it can do. Served without auth at
-// /.well-known/openmausbot/environment so a saved connection can check it is
+// /.well-known/handbot/environment so a saved connection can check it is
 // still talking to the same server, and so version skew is visible.
 import { randomUUID } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";

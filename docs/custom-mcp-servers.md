@@ -4,7 +4,7 @@ Open **Plugins → MCP servers → Add server** to give your bots tools from a
 trusted local MCP server. Add the executable, put each argument on its own
 line, and add any environment variables as `KEY=value`.
 
-OpenMausBot saves a new server switched off. Use **Test** to start it briefly,
+HandBot saves a new server switched off. Use **Test** to start it briefly,
 complete the MCP handshake, and see the tools it advertises. Then turn it on.
 It becomes available to compatible bots on their next task; no app restart is
 needed.
@@ -14,7 +14,7 @@ accept remote MCP URLs or shell command strings.
 
 ## Advanced: edit the file
 
-The same registry lives in `~/.openmausbot/config.json`:
+The same registry lives in `~/.handbot/config.json`:
 
 ```json
 {
@@ -28,7 +28,7 @@ The same registry lives in `~/.openmausbot/config.json`:
 }
 ```
 
-If you edit the file by hand, restart OpenMausBot. Every bot whose engine can
+If you edit the file by hand, restart HandBot. Every bot whose engine can
 mount custom MCP servers gets the enabled tools on its next task.
 
 ## Rules that keep this safe
@@ -54,7 +54,7 @@ mount custom MCP servers gets the enabled tools on its next task.
   prefer tokens scoped to the one server.
 - **Testing is bounded.** The test command is stopped after the handshake (or
   eight seconds), its output is capped, and its stderr is never sent to the UI.
-  It inherits none of OpenMausBot's workspace or provider credentials; only
+  It inherits none of HandBot's workspace or provider credentials; only
   the environment variables configured for that MCP server are added.
 - `"enabled": false` parks an entry without deleting it.
 - Stdio servers only for now — `url` transports are a planned follow-up and

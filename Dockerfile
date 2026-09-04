@@ -1,4 +1,4 @@
-# OpenMausBot harness server — hosted/self-hosted tenant image.
+# HandBot harness server — hosted/self-hosted tenant image.
 #
 # Two stages: build the renderer + the self-contained server bundle, then ship
 # only those artifacts on a slim Node runtime. The server keeps binding
@@ -6,11 +6,11 @@
 # model); deploy/docker-compose.yml puts Caddy in the same network namespace
 # to terminate TLS and authentication at the edge.
 #
-#   docker build -t openmausbot .
-#   docker build --build-arg ENGINES="@anthropic-ai/claude-code @openai/codex" -t openmausbot .
+#   docker build -t handbot .
+#   docker build --build-arg ENGINES="@anthropic-ai/claude-code @openai/codex" -t handbot .
 #
 # HOME is the /data volume, so engine CLI logins (~/.claude, ~/.codex, ...) and
-# OpenMausBot's own state (~/.openmausbot) persist across container restarts.
+# HandBot's own state (~/.handbot) persist across container restarts.
 
 FROM node:24-bookworm-slim AS build
 WORKDIR /src
@@ -39,7 +39,7 @@ COPY --from=build --chown=maus:maus /src/dist ./dist
 ARG ENGINES=""
 RUN if [ -n "$ENGINES" ]; then npm install -g $ENGINES; fi
 ENV HOME=/data \
-    OMB_DATA_DIR=/data/.openmausbot \
+    OMB_DATA_DIR=/data/.handbot \
     OMB_STATIC_DIR=/app/dist \
     OMB_PORT=8799 \
     OMB_WEBHOOK_PORT=8800 \
@@ -47,5 +47,5 @@ ENV HOME=/data \
 VOLUME ["/data"]
 USER maus
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-  CMD curl -sf http://127.0.0.1:8799/api/health | grep -q openmausbot || exit 1
+  CMD curl -sf http://127.0.0.1:8799/api/health | grep -q handbot || exit 1
 CMD ["node", "dist-server/index.js"]

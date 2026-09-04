@@ -18,10 +18,10 @@
             path="companion_device_token.xml" />
         <exclude
             domain="sharedpref"
-            path="openmaus.permissions.xml" />
+            path="handbot.permissions.xml" />
         <exclude
             domain="sharedpref"
-            path="openmaus.onboarding.xml" />
+            path="handbot.onboarding.xml" />
     </cloud-backup>
     <device-transfer>
         <exclude
@@ -29,9 +29,9 @@
             path="companion_device_token.xml" />
         <exclude
             domain="sharedpref"
-            path="openmaus.permissions.xml" />
+            path="handbot.permissions.xml" />
         <exclude
             domain="sharedpref"
-            path="openmaus.onboarding.xml" />
+            path="handbot.onboarding.xml" />
     </device-transfer>
 </data-extraction-rules>

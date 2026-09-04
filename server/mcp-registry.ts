@@ -29,8 +29,8 @@ const RESERVED_MCP_NAMES = new Set([
   "browser",
   "phone",
   "dweb",
-  "openmausbot_connectors",
-  "openmausbot_phone",
+  "handbot_connectors",
+  "handbot_phone",
 ]);
 
 const storedEntrySchema = z.object({
@@ -48,7 +48,7 @@ export function mcpServerNameError(name: string): string | null {
   if (!MCP_NAME.test(name)) {
     return "Use 1–32 lowercase letters, numbers, underscores, or hyphens, starting with a letter.";
   }
-  if (RESERVED_MCP_NAMES.has(name)) return "That name is reserved by OpenMausBot.";
+  if (RESERVED_MCP_NAMES.has(name)) return "That name is reserved by HandBot.";
   return null;
 }
 

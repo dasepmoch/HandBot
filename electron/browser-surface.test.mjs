@@ -45,7 +45,7 @@ function fakeView(partition) {
   const fieldClassificationQueues = new Map();
   const webContents = {
     session: {
-      getUserAgent: () => "Mozilla/5.0 Chrome/1 Electron/43 OpenMausBot/1",
+      getUserAgent: () => "Mozilla/5.0 Chrome/1 Electron/43 HandBot/1",
       setUserAgent: (ua) => calls.push(["setUserAgent", ua]),
       setPermissionCheckHandler: () => {},
       setPermissionRequestHandler: () => {},
@@ -343,7 +343,7 @@ describe("browser surface manager", () => {
 
     const state = manager.layout("bot-a", { x: 20.4, y: 30.6, width: 5000, height: 300 }, "", "compact");
     expect(views).toHaveLength(1);
-    expect(views[0].partition).toBe("persist:openmausbot-browser-bot-a");
+    expect(views[0].partition).toBe("persist:handbot-browser-bot-a");
     expect(views[0].bounds).toEqual({ x: 20, y: 31, width: 1180, height: 300 });
     expect(views[0].visible).toBe(true);
     expect(owner.contentView.children).toEqual([views[0]]);
@@ -588,7 +588,7 @@ describe("browser surface manager", () => {
     // switch to a named profile: a second view in the shared partition takes the same rectangle
     manager.layout("bot-a", BOUNDS, "work", "compact");
     expect(views).toHaveLength(2);
-    expect(views[1].partition).toBe("persist:openmausbot-browser-profile-work");
+    expect(views[1].partition).toBe("persist:handbot-browser-profile-work");
     expect(views[0].visible).toBe(false);
     expect(views[1].visible).toBe(true);
     expect(views[1].bounds).toEqual(BOUNDS);
@@ -608,7 +608,7 @@ describe("browser surface manager", () => {
     expect(page.url).toBe("https://own.example/");
     // another bot on the same named profile shares the session, not the view
     manager.layout("bot-b", BOUNDS, "work", "compact");
-    expect(views[2].partition).toBe("persist:openmausbot-browser-profile-work");
+    expect(views[2].partition).toBe("persist:handbot-browser-profile-work");
     expect(views[1].calls.filter(([name, event]) => name === "sessionOn" && event === "will-download")).toHaveLength(1);
     expect(manager.list().filter((entry) => entry.active).map((entry) => entry.botId).sort()).toEqual(["bot-a", "bot-b"]);
     expect(states.some((state) => state.botId === "bot-a" && state.profile === "work")).toBe(true);
@@ -671,7 +671,7 @@ describe("browser surface manager", () => {
   it("forgets a Guest session the moment the bot switches off it", async () => {
     const { manager, views } = harness();
     manager.layout("bot-a", BOUNDS, GUEST_PROFILE, "compact");
-    expect(views[0].partition).toMatch(/^openmausbot-browser-guest-bot-a-\d+$/);
+    expect(views[0].partition).toMatch(/^handbot-browser-guest-bot-a-\d+$/);
     expect(views[0].partition.startsWith("persist:")).toBe(false);
     await manager.navigate("bot-a", "https://secret.example");
     manager.layout("bot-a", BOUNDS, "", "compact");
@@ -1014,7 +1014,7 @@ describe("browser surface manager", () => {
       botId: "bot-a",
       open: false,
       profile: "work",
-      partition: "persist:openmausbot-browser-profile-work",
+      partition: "persist:handbot-browser-profile-work",
       mode: "compact",
       code: "renderer-gone",
     });
@@ -1559,7 +1559,7 @@ describe("browser surface manager", () => {
     expect(helperCalls.some(([, params]) => params.expression === "/*injected*/")).toBe(true);
     expect(cdpCalls(views[0])).toContainEqual([
       "Page.createIsolatedWorld",
-      { frameId: "main-frame", worldName: "openmausbot-browser-snapshot", grantUniveralAccess: false },
+      { frameId: "main-frame", worldName: "handbot-browser-snapshot", grantUniveralAccess: false },
     ]);
   });
 

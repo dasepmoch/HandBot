@@ -461,7 +461,7 @@ function createBrowserSurfaceManager({
   now = () => Date.now(),
   injectedSource = loadInjectedSource(),
 }) {
-  if (!owner || owner.isDestroyed?.()) throw new Error("The OpenMausBot window is unavailable");
+  if (!owner || owner.isDestroyed?.()) throw new Error("The HandBot window is unavailable");
   if (createView?.constructor !== Function) throw new Error("The browser surface viewer is unavailable");
   const emit = notify instanceof Function ? notify : () => {};
   const emitUserInteraction = onUserInteraction instanceof Function ? onUserInteraction : () => {};
@@ -484,7 +484,7 @@ function createBrowserSurfaceManager({
   let guestCounter = 0;
 
   const partitionForProfile = (botId, profile) => {
-    if (profile === GUEST_PROFILE) return `openmausbot-browser-guest-${botId}-${++guestCounter}`;
+    if (profile === GUEST_PROFILE) return `handbot-browser-guest-${botId}-${++guestCounter}`;
     return profile ? browserProfilePartition(profile) : ownPartitionFor(botId);
   };
   const profileIdOf = (profile) => {
@@ -969,7 +969,7 @@ function createBrowserSurfaceManager({
 
   const create = (botId, profile) => {
     evictIfNeeded();
-    if (owner.isDestroyed?.()) throw new Error("The OpenMausBot window is unavailable");
+    if (owner.isDestroyed?.()) throw new Error("The HandBot window is unavailable");
     const partition = partitionForProfile(botId, profile);
     const view = createView({
       webPreferences: {
@@ -1171,7 +1171,7 @@ function createBrowserSurfaceManager({
       if (!frameId) throw new Error("the browser page has no main frame");
       const { executionContextId } = await cdp(entry, "Page.createIsolatedWorld", {
         frameId,
-        worldName: "openmausbot-browser-snapshot",
+        worldName: "handbot-browser-snapshot",
         grantUniveralAccess: false,
       });
       if (!executionContextId) throw new Error("could not create the protected browser helper world");

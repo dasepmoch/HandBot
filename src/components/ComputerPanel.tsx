@@ -223,7 +223,7 @@ export function ComputerPanel({
     selectedInstance?.capabilities?.browserMcp === true &&
     selectedInstance.driverKind !== "boxAgent";
   const browserDisabledReason = !window.ogb?.browser
-    ? "The built-in browser needs the OpenMausBot desktop app"
+    ? "The built-in browser needs the HandBot desktop app"
     : !builtInBrowserEnabled(state.config)
       ? "The built-in browser is switched off under App Settings → Experimental"
       : "This model engine cannot use the built-in browser";
@@ -719,12 +719,12 @@ export function ComputerPanel({
 
       if (window.ogb?.desktopViewer) {
         const opened = await window.ogb.desktopViewer.open(viewerUrl, `${bot.name}'s live desktop`, bot.id);
-        if (!opened) throw new Error("OpenMausBot could not open the live desktop");
+        if (!opened) throw new Error("HandBot could not open the live desktop");
       } else if (fallbackTab) {
         fallbackTab.location.replace(viewerUrl);
       } else if (window.ogb?.openExternal) {
         const opened = await window.ogb.openExternal(viewerUrl);
-        if (!opened) throw new Error("OpenMausBot could not open the live desktop link");
+        if (!opened) throw new Error("HandBot could not open the live desktop link");
       } else if (!window.open(viewerUrl, "_blank", "noopener")) {
         throw new Error("Your browser blocked the live desktop tab");
       }
@@ -808,7 +808,7 @@ export function ComputerPanel({
   };
 
   const replaceVpsComputer = async () => {
-    if (!window.confirm(`Replace ${bot.name}'s VPS computer with the version required by this OpenMausBot update? Files stored only inside the disposable container will be deleted.`)) return;
+    if (!window.confirm(`Replace ${bot.name}'s VPS computer with the version required by this HandBot update? Files stored only inside the disposable container will be deleted.`)) return;
     setPending("vps-replace");
     setError(null);
     try {
@@ -831,7 +831,7 @@ export function ComputerPanel({
   };
 
   const openVmSettings = () => {
-    window.sessionStorage.setItem("openmausbot.settings.section", "computer");
+    window.sessionStorage.setItem("handbot.settings.section", "computer");
     dispatch({ type: "toggleAppSettings", open: true });
   };
 
@@ -844,7 +844,7 @@ export function ComputerPanel({
     starting: "Starting your bot's computer…",
     unconfigured: "No cloud computer configured",
     "vps-unconfigured": "No managed VPS computer is configured for this bot",
-    "vps-incompatible": "This VPS computer belongs to an earlier OpenMausBot version",
+    "vps-incompatible": "This VPS computer belongs to an earlier HandBot version",
     "vps-stopped": "The managed VPS computer is stopped",
     "local-unavailable": localDisabledReason ?? "Local computer control isn't ready.",
     "vm-unavailable": "The Local VM isn't available for this bot",
@@ -1175,7 +1175,7 @@ export function ComputerPanel({
             onClick={() => void openDesktop()}
             disabled={pending === "join"}
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-control py-2 text-[13px] text-ink hover:bg-raised-hover disabled:opacity-50"
-            title="Open the Local VM's live desktop inside OpenMausBot"
+            title="Open the Local VM's live desktop inside HandBot"
           >
             {pending === "join" ? <Loader2 size={14} className="animate-spin" /> : <Monitor size={14} />}
             Open live desktop
