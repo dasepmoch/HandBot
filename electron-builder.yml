@@ -16,7 +16,7 @@ protocols:
 publish:
   - provider: github
     owner: dasepmoch
-    repo: handbot
+    repo: HandBot
 
 directories:
   buildResources: build
